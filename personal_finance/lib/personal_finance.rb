@@ -4,30 +4,34 @@
 require "active_record"
 require "pry"
 
+#connection, the "clean_table" method, validations for attributes for Class and Category class
+#and non-MVP require relation Account are commented out to verify "personal_finance_spec" file
+#runs correctly
+
 # Establishing connection to ActiveRecord.  
-ActiveRecord::Base.establish_connection(
-	:adapter => "postgresql",
-	:host => "localhost",
-	:database => "kitchen_db"
-)
+# ActiveRecord::Base.establish_connection(
+# 	:adapter => "postgresql",
+# 	:host => "localhost",
+# 	:database => "kitchen_db"
+# )
 
 # To clear tables in database
-def clean_table
-  ActiveRecord::Base.connection.tables.each do |table|
-  ActiveRecord::Base.connection.drop_table(table)
-  end
-end
+# def clean_table
+#   ActiveRecord::Base.connection.tables.each do |table|
+#   ActiveRecord::Base.connection.drop_table(table)
+#   end
+# end
 
 
 class Transaction < ActiveRecord::Base
-	has_many :categories, dependent: :destroy
-	# has_many :accounts, dependent: :destroy
-	validates :value, :date, :presence =>true
+	# has_many :categories, dependent: :destroy
+	# # has_many :accounts, dependent: :destroy
+	# validates :value, :date, :presence =>true
 end
 
 class Category < ActiveRecord::Base
-	belongs_to :transactions #, dependent: :destroy
-	validates :cat_name
+	# belongs_to :transactions #, dependent: :destroy
+	# validates :cat_name
 end
 
 # class Account < ActiveRecord::Base
@@ -63,9 +67,7 @@ class PersonalFinanceManager < ActiveRecord::Migration
 		# 	column.boolean :is_on_budget
 		# 	column.string :acct_note
 	
-		# create_table :flags do |column|
-		# 	column.string :flag_name
-		# 	column.string :flag_note
-		# end
 	end
 end
+
+binding.pry
