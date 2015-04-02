@@ -14,24 +14,25 @@ end
 
 
 def add_new_transaction inputCredit = nil, inputDebit
-
+	
 
 	### stopped here.  this stopped working
 		puts("Press 1 if Credit, Press 2 if Debit")  
 		puts 
 		menu_choice = gets.chomp.to_i
-		if menu_choice == 1 #input credit
-			puts "Amount of credit:"
-			new_credit = gets.chomp.to_i
-			puts new_credit
-			puts "adding new_credit!"
-		elsif menu_choice == 2 #input debit
-			puts "Amount of debit:"
-			new_debit = gets.chomp.to_i
-		else
-			puts "Choose a valid selection"
-		break
-		end
+		loop do
+			if menu_choice == 1 #input credit
+				puts "Amount of credit:"
+				new_credit = gets.chomp.to_i
+				puts new_credit
+				puts "adding new_credit!"
+			elsif menu_choice == 2 #input debit
+				puts "Amount of debit:"
+				new_debit = gets.chomp.to_i
+			else
+				puts "Choose a valid selection"
+			break
+			end
 		puts "Date:"
 		new_date = gets.chomp.to_s
 		puts "Category:"
