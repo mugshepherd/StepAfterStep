@@ -1,7 +1,7 @@
 
 class Transaction < ActiveRecord::Base
 	# has_many :accounts, dependent: :destroy
-	validates (:debit || :credit), :date, :presence =>true
+	validates value, :date, :presence =>true
 	belongs_to :accounts
 end
 
@@ -13,31 +13,36 @@ def view_all_transactions
 end
 
 
-def add_new_transaction inputCredit = nil, inputDebit
-	
+def add_new_transaction
 
 	### stopped here.  this stopped working
+	new_entry_is_credit = nil
+
 		puts("Press 1 if Credit, Press 2 if Debit")  
 		puts 
 		menu_choice = gets.chomp.to_i
-		loop do
+		loop do |variable|
 			if menu_choice == 1 #input credit
-				puts "Amount of credit:"
-				new_credit = gets.chomp.to_i
-				puts new_credit
-				puts "adding new_credit!"
-			elsif menu_choice == 2 #input debit
-				puts "Amount of debit:"
-				new_debit = gets.chomp.to_i
+				new_entry_is_credit = true
+				break
+			elsif menu_choice == 2 #input debi
+				new_entry_is_credit = false
+				break
 			else
-				puts "Choose a valid selection"
-			break
+				puts "Invalid entry.  Please try again."
 			end
-		puts "Date:"
+		end
+		puts "Amount of Transaction:"
+		new_value = gets.chomp.to_i
+		else
+			puts "Choose a valid selection"
+		break
+		end
+		puts "Date:  "
 		new_date = gets.chomp.to_s
-		puts "Category:"
+		puts "Category:  "
 		new_category = gets.chomp.to_s
-		puts "Payee:"
+		puts "Payee:  "
 		new_payee = gets.chomp.to_s
 		puts "Select Account ID number"
 		tp Account.all
@@ -45,7 +50,7 @@ def add_new_transaction inputCredit = nil, inputDebit
 		puts "Insert Note, if any"
 		new_note = gets.chomp.to_s
 	end
-	transaction_new = Transaction.new(credit: new_credit, debit: new_debit, accounts_id: new_transaction_account, category: new_category, payee: new_payee)
+	transaction_new = Transaction.new(:value => new_value, :is_credit => new_entry_is_credit, :accounts_id => new_transaction_account, :category => new_category, :payee => new_payee)
 end
 
 def edit_transaction
