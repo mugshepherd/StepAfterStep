@@ -49,12 +49,46 @@ def add_new_transaction
 	transaction_new = Transaction.create(:is_credit => @new_entry_is_credit, :value => new_value, :date => new_date, :category => new_category, :payee => new_payee, :accounts_id => new_transaction_account, :note => new_note)
 end
 
-def edit_transaction
+
+
+def edit_transaction 
+	
 	puts "Select an entry to edit"
 	view_all_transactions
-	transaction_edit = gets.chomp.to_i
-
+	puts
+	print "Please select an ID number"
+	transaction_to_edit = gets.chomp.to_i
+	# puts Transaction.find(transaction_to_edit).inspect
+	puts "Selected Transaction Overview:  "
+	tp Transaction.where(:id => transaction_to_edit)
 	
+	puts "Please enter corrected values for each field."
+	# if Transaction.find(transaction_to_edit).is_credit == true
+	puts "Transaction is a Credit - currently:  #{Transaction.find(transaction_to_edit).is_credit}"
+	updated_is_credit = gets.chomp.to_i
+	puts "Value - currently:  #{Transaction.find(transaction_to_edit).value}"
+	updated_value = gets.chomp.to_i
+	
+	puts "Date - currently:  #{Transaction.find(transaction_to_edit).date}"
+	updated_date = gets.chomp.to_i
+	
+	puts "Category - currently:  #{Transaction.find(transaction_to_edit).category}"
+	updated_category = gets.chomp.to_i
+	
+	puts "Payee - currently:  #{Transaction.find(transaction_to_edit).payee}"
+	updated_payee = gets.chomp.to_i
+	
+	puts "Account - currently:  #{Transaction.find(transaction_to_edit).accounts_id}"
+	puts "Select an updated Account ID."
+	view_all_accts
+	puts
+	updated_account_id = gets.chomp.to_i
+		
+	puts "Note - currently:  #{Transaction.find(transaction_to_edit).note}"
+	updated_note = gets.chomp.to_i
+	
+	transaction_updated = Transaction.update(:is_credit => @new_entry_is_credit, :value => new_value, :date => new_date, :category => new_category, :payee => new_payee, :accounts_id => new_transaction_account, :note => new_note)
+
 	puts "Under development.  Return to main menu"
 end
 
