@@ -2,8 +2,8 @@ class PersonalFinanceManager < ActiveRecord::Migration
 
 	def initialize
 		create_table :transactions do |column|
-			column.float :debit #value of transaction in dollars  
-			column.float :credit
+			column.float :value #value of transaction in dollars  
+			column.boolean :is_credit #true if credit, false if debit.
 			column.string :date
 			column.string :category
 			column.string :payee

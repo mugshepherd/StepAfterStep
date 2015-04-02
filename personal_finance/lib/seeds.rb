@@ -22,14 +22,14 @@ def seed_db
 	account8 = Account.create(:acct_name => 'Scottrade IRA', :is_on_budget => false, :acct_note => '$400 per month')
 
 
-	transaction1 = Transaction.create(:payee => 'Ruby Tuesday', :accounts_id => 3,:category => 'Lunch', :date => '1/24/13', :debit => 104.46)
-	transaction2 = Transaction.create(:payee => 'Target', :accounts_id => 3,:category => 'Groceries', :date => '5/23/13', :debit => 185.75)
-	transaction3 = Transaction.create(:payee => 'Giant', :accounts_id => 3,:category => 'Groceries', :date => '12/01/14', :debit => 221.2)
-	transaction4 = Transaction.create(:payee => 'Landlord', :accounts_id => 1,:category => 'Rent', :date => '2/04/14', :debit => 29)
-	transaction5 = Transaction.create(:payee => 'Hershey Park', :accounts_id => 1,:category => 'Fun', :date => '2/02/15', :debit => 134.2)
-	transaction6 = Transaction.create(:payee => 'Staples', :accounts_id => 1,:category => 'Personal Admin', :date => '5/16/14', :debit => 318)
-	transaction6 = Transaction.create(:payee => 'Plumber', :accounts_id => 2,:category => 'Maintenance', :date => '9/28/14', :debit => 161.9)
-	transaction7 = Transaction.create(:payee => 'Pepco', :accounts_id => 1,:category => 'Utilities', :date => '5/18/14', :debit => 129.2)
-	transaction8 = Transaction.create(:payee => 'Walmart', :accounts_id => 2,:category => 'Household Goods', :date => '6/10/14', :debit => 137.5)
+	transaction1 = Transaction.create(:payee => 'Ruby Tuesday', :accounts_id => 3,:category => 'Lunch', :date => '1/24/13', :value => 104.46, :is_credit => false)
+	transaction2 = Transaction.create(:payee => 'Target', :accounts_id => 3,:category => 'Groceries', :date => '5/23/13', :value => 185.75, :is_credit => false)
+	transaction3 = Transaction.create(:payee => 'Giant', :accounts_id => 3,:category => 'Groceries', :date => '12/01/14', :value => 221.2, :is_credit => false)
+	transaction4 = Transaction.create(:payee => 'Landlord', :accounts_id => 1,:category => 'Rent', :date => '2/04/14', :value => 29, :is_credit => false)
+	transaction5 = Transaction.create(:payee => 'Hershey Park', :accounts_id => 1,:category => 'Fun', :date => '2/02/15', :value => 134.2, :is_credit => false)
+	transaction6 = Transaction.create(:payee => 'Staples', :accounts_id => 1,:category => 'Personal Admin', :date => '5/16/14', :value => 318, :is_credit => false)
+	transaction6 = Transaction.create(:payee => 'Plumber', :accounts_id => 2,:category => 'Maintenance', :date => '9/28/14', :value => 161.9, :is_credit => false)
+	transaction7 = Transaction.create(:payee => 'Pepco', :accounts_id => 1,:category => 'Utilities', :date => '5/18/14', :value => 129.2, :is_credit => false)
+	transaction8 = Transaction.create(:payee => 'Walmart', :accounts_id => 2,:category => 'Household Goods', :date => '6/10/14', :value => 137.5, :is_credit => false)
 
 end
