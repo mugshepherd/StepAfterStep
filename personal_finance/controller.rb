@@ -8,6 +8,7 @@ require_relative "./lib/personal_finance_manager.rb"
 require_relative "./lib/seeds.rb"
 require 'io/console' #required to use "getch" below - which seeks 
 # STDIN.getch
+require  'table_print'
 
 
 # Establishing connection to ActiveRecord.  
@@ -16,13 +17,6 @@ ActiveRecord::Base.establish_connection(
 	:host => "localhost",
 	:database => "personal_finance_db"
 )
-
-# To clear tables in database
-def reset_database
-  ActiveRecord::Base.connection.tables.each do |table|
-  ActiveRecord::Base.connection.drop_table(table)
-  end
-end
 
 # menu of options
 
@@ -61,54 +55,10 @@ def transaction_management
 end  
 
 
-def view_all_transactions
-	puts "view_all_transactions"
-	puts Transaction.all
-		# puts "#{listing.value}	#{listing.date}	#{listing.debit}	#{listing.credit}"
-end
-
-def add_new_transaction
-	puts "add_new_transaction"
-	puts "Under development.  Return to main menu"
-end
-
-def edit_transaction
-	puts "edit_transaction"
-	puts "Under development.  Return to main menu"
-end
-
-def delete_transaction
-	puts "delete_transaction"
-	puts "Under development.  Return to main menu"	
-end
-
-def filter_by_category
-	puts "filter_by_category"
-	puts "Under development.  Return to main menu"
-end
 
 
 
 
-def view_all_accts
-	puts "view_all_accts"
-	puts "Under development.  Return to main menu"
-end
-
-def add_new_accts	
-	puts "add_new_accts"
-	puts "Under development.  Return to main menu"
-end
-
-def edit_accts
-	puts "edit_accts"
-	puts "Under development.  Return to main menu"
-end
-
-def delete_accts
-	puts "delete_accts"
-	puts "Under development.  Return to main menu"
-end
 
 
 def acct_management
@@ -142,31 +92,43 @@ def acct_management
 end
 
 
-#methods for advanced options
-def reset_database
-	puts "reset_database"
-	puts "Under development.  Return to main menu"
+#View all data in database
+def view_all_data
+	view_all_transactions
+	view_all_accts
+	puts
 end
 
-def acct_management
-	puts "acct_management"
-	puts "Under development.  Return to main menu"
+#reset all data in database.  This drops tables, then recreates them (allows to update fields of data). 
+def reset_database
+  ActiveRecord::Base.connection.tables.each do |table|
+  ActiveRecord::Base.connection.drop_table(table)
+  end
+  PersonalFinanceManager.new
+end
+
+def seed_database
+	reset_database
+	seed_db
 end
 
 def advanced_options
 	loop do
 		puts
 		puts "advanced_options"
+		puts ("Type 'v' to View All Data in Database")
 		puts("Type 'r' to Reset Database")
-	  puts("Type 's to Seed Database with New Data")
+	  puts("Type 's to Reset and Seed with New Data")
 	  puts("Type 'p' to Launch Pry at the Command Line")
 	  puts("Press 0 to Return to Main Menu")
 
 	  menu_choice = gets.chomp.to_s
-	  if menu_choice.downcase == "r"
+	  if menu_choice.downcase == "v"
+	  		view_all_data
+	  elsif menu_choice.downcase == "r"
 	  	reset_database
 	  elsif menu_choice.downcase == "s"
-	  	seed_db
+	  	seed_database
 	  elsif menu_choice.downcase == "p"
 	  	binding.pry
 	  elsif menu_choice == "0"

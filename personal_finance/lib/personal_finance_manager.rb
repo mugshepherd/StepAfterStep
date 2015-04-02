@@ -6,7 +6,8 @@ class PersonalFinanceManager < ActiveRecord::Migration
 			column.float :credit
 			column.string :date
 			column.string :category
-			column.belongs_to :account
+			column.string :payee
+			column.belongs_to :accounts
 			column.string :note
 			column.boolean :is_cleared
 			column.boolean :is_flagged
