@@ -6,7 +6,11 @@ require_relative "../lib/personal_finance.rb"
 #test Transacation class
 
 describe Transaction do
+	lunch = PersonalFinanceManager.new(10,)
 	it "has a value" do
+		expect(Transaction.
+
+
 	end
 	it "has a category" do
 	end
