@@ -70,24 +70,25 @@ def edit_transaction
 	updated_value = gets.chomp.to_i
 	
 	puts "Date - currently:  #{Transaction.find(transaction_to_edit).date}"
-	updated_date = gets.chomp.to_i
+	updated_date = gets.chomp.to_s
 	
 	puts "Category - currently:  #{Transaction.find(transaction_to_edit).category}"
-	updated_category = gets.chomp.to_i
+	updated_category = gets.chomp.to_s
 	
 	puts "Payee - currently:  #{Transaction.find(transaction_to_edit).payee}"
-	updated_payee = gets.chomp.to_i
+	updated_payee = gets.chomp.to_s
 	
 	puts "Account - currently:  #{Transaction.find(transaction_to_edit).accounts_id}"
 	puts "Select an updated Account ID."
 	view_all_accts
 	puts
 	updated_account_id = gets.chomp.to_i
-		
+
 	puts "Note - currently:  #{Transaction.find(transaction_to_edit).note}"
-	updated_note = gets.chomp.to_i
+	updated_note = gets.chomp.to_s
 	
-	transaction_updated = Transaction.update(:is_credit => @new_entry_is_credit, :value => new_value, :date => new_date, :category => new_category, :payee => new_payee, :accounts_id => new_transaction_account, :note => new_note)
+
+	transaction_updated = Transaction.update(transaction_to_edit, :is_credit => updated_is_credit, :value => updated_value, :date => updated_date, :category => updated_category, :payee => updated_payee, :accounts_id => updated_account_id, :note => updated_note)
 
 	puts "Under development.  Return to main menu"
 end
