@@ -9,8 +9,6 @@ class PersonalFinanceManager < ActiveRecord::Migration
 			column.string :payee
 			column.belongs_to :accounts
 			column.string :note
-			column.boolean :is_cleared
-			column.boolean :is_flagged
 		end	
 
 		create_table :accounts do |column|
@@ -21,3 +19,4 @@ class PersonalFinanceManager < ActiveRecord::Migration
 	
 	end
 end
+

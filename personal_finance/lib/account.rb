@@ -3,6 +3,12 @@ class Account < ActiveRecord::Base
 	# validates :acct_name, :uniqueness => true
 end
 
+def acct_total
+	puts
+	balance = Transaction.sum(:values).where(:is_credit => true) - Transaction.sum(:values).where(:is_credit => false)
+	puts balance
+end
+
 
 ##Methods related to accounts
 
