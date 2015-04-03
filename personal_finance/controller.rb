@@ -44,7 +44,8 @@ def transaction_management
 	  	edit_transaction
 	  elsif menu_choice == "4"
 	  	filter_by_category
-	  elsif menu_choice == "d"
+	  elsif menu_choice.downcase == "d"
+	  	view_all_transactions
 	  	delete_transaction
 	  elsif menu_choice == "0"
 	  	break

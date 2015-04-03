@@ -6,13 +6,12 @@ class Transaction < ActiveRecord::Base
 end
 
 def view_all_transactions
-	print ` clear `
 	puts
 	tp Transaction.all
-	puts
-		# puts "#{listing.value}	#{listing.date}	#{listing.debit}	#{listing.credit}"
 end
 
+def select_transaction
+end
 
 def add_new_transaction
 	print ` clear `
@@ -34,7 +33,7 @@ def add_new_transaction
 	end
 	puts "Amount of Transaction:"
 	new_value = gets.chomp.to_i
-	puts "Date:  "
+	puts "Date:  (MM/DD/YY)"
 	new_date = gets.chomp.to_s
 	puts "Category:  "
 	new_category = gets.chomp.to_s
@@ -47,14 +46,17 @@ def add_new_transaction
 	new_note = gets.chomp.to_s
 
 	transaction_new = Transaction.create(:is_credit => @new_entry_is_credit, :value => new_value, :date => new_date, :category => new_category, :payee => new_payee, :accounts_id => new_transaction_account, :note => new_note)
+	puts "New Transaction Entered:  "
+	return tp transaction_new	
 end
 
-def delete_transaction
-	menu_choice.downcase == "d"
+
+#left off here
+def delete_transaction goner
 	puts "Please press 'd' again to delete"
 	selection_drop_confirm = gets.chomp.to_s
 	if selection_drop_confirm == "d"
-		Transaction.delete(transaction_to_edit)
+		Transaction.find(goner).delete
 	else
 		puts "Returning to previous menu."
 	end
@@ -62,7 +64,6 @@ end
 
 def edit_transaction 
 	loop do
-		print ` clear `
 		puts "Select an entry to edit"
 		view_all_transactions
 		puts
@@ -75,7 +76,6 @@ def edit_transaction
 		puts "Selected Transaction Overview:  "
 		tp Transaction.where(:id => transaction_to_edit)
 		puts
-	  puts("Press ENTER to return to preceding menu")
 	  puts("Type 1 to Update Transaction Type (ie: debit or credit)")
 	  puts("Type 2 to Update Value of Transaction")
 	  puts("Type 3 to Update Date")
@@ -83,16 +83,13 @@ def edit_transaction
 	  puts("Type 5 to Update Payee")
 	  puts("Type 6 to Update Account")
 	  puts("Type 7 to Update Note")
-	  puts("Press 'd' to Delete Transaction")  
-
+	  puts("Type 0 to return to Main Menu")
 	  puts
 	  puts("Enter a number: ")
 	  menu_choice = gets.chomp.to_s
 	  puts
-	  if menu_choice == ""
-	  	break
-
-	  elsif menu_choice == "1" #update credit or debit
+	  
+	  if menu_choice == "1" #update credit or debit
 			menu_choice = gets.chomp.to_i
 			puts "Currently:  #{Transaction.find(transaction_to_edit).is_credit}"
 			updated_is_credit = gets.chomp.to_s
@@ -130,9 +127,6 @@ def edit_transaction
 	  	puts "Note - currently:  #{Transaction.find(transaction_to_edit).note}"
 	  	updated_note = gets.chomp.to_s
 	  	transaction_updated = Transaction.update(transaction_to_edit, :note => updated_note)
-	  
-	  elsif 
-	  	delete_transaction
 	  else 
 	  	puts "Invalid selection.  Please try again."
 	  end
