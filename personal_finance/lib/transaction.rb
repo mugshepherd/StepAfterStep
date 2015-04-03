@@ -13,25 +13,6 @@ def view_all_transactions
 		# puts "#{listing.value}	#{listing.date}	#{listing.debit}	#{listing.credit}"
 end
 
-def select_transaction
-	view_all_transactions
-	puts
-	print "Please select an ID number"
-	selected_transaction = gets.chomp.to_i
-end
-
-
-def delete_transaction
-	select_transaction
-	puts "Please press 'd' again to delete"
-	selection_drop_confirm = gets.chomp.to_s
-	if selection_drop_confirm == "d"
-		Transaction.delete(selected_transaction)
-	else
-		puts "Returning to previous menu."
-	end
-end
-
 
 def add_new_transaction
 	print ` clear `
@@ -68,17 +49,31 @@ def add_new_transaction
 	transaction_new = Transaction.create(:is_credit => @new_entry_is_credit, :value => new_value, :date => new_date, :category => new_category, :payee => new_payee, :accounts_id => new_transaction_account, :note => new_note)
 end
 
+def delete_transaction
+	menu_choice.downcase == "d"
+	puts "Please press 'd' again to delete"
+	selection_drop_confirm = gets.chomp.to_s
+	if selection_drop_confirm == "d"
+		Transaction.delete(transaction_to_edit)
+	else
+		puts "Returning to previous menu."
+	end
+end
 
 def edit_transaction 
 	loop do
 		print ` clear `
 		puts "Select an entry to edit"
-	# puts Transaction.find(selected_transaction).inspect
+		view_all_transactions
+		puts
+		print "Please select an ID number"
+		transaction_to_edit = gets.chomp.to_i
+		# puts Transaction.find(transaction_to_edit).inspect
 
 		puts "Please select field to edit, or press RETURN for the previous menu"
 
 		puts "Selected Transaction Overview:  "
-		tp Transaction.where(:id => selected_transaction)
+		tp Transaction.where(:id => transaction_to_edit)
 		puts
 	  puts("Press ENTER to return to preceding menu")
 	  puts("Type 1 to Update Transaction Type (ie: debit or credit)")
@@ -99,48 +94,51 @@ def edit_transaction
 
 	  elsif menu_choice == "1" #update credit or debit
 			menu_choice = gets.chomp.to_i
-			puts "Currently:  #{Transaction.find(selected_transaction).is_credit}"
+			puts "Currently:  #{Transaction.find(transaction_to_edit).is_credit}"
 			updated_is_credit = gets.chomp.to_s
-			transaction_updated = Transaction.atrribute(selected_transaction, :is_credit => updated_is_credit)
+			transaction_updated = Transaction.atrribute(transaction_to_edit, :is_credit => updated_is_credit)
 
 	  elsif menu_choice == "2" #update value of transaction
-	  	puts "Currently:  #{Transaction.find(selected_transaction).value}"
+	  	puts "Currently:  #{Transaction.find(transaction_to_edit).value}"
 	  	updated_value = gets.chomp.to_i
-			transaction_updated = Transaction.update(selected_transaction, :value => updated_value)
+			transaction_updated = Transaction.update(transaction_to_edit, :value => updated_value)
 
 	  elsif menu_choice == "3"  #update date
-	  	puts "Currently:  #{Transaction.find(selected_transaction).date}"
+	  	puts "Currently:  #{Transaction.find(transaction_to_edit).date}"
 	  	updated_date = gets.chomp.to_s
-	  	transaction_updated = Transaction.update(selected_transaction, :date => updated_date)
+	  	transaction_updated = Transaction.update(transaction_to_edit, :date => updated_date)
 
 	  elsif menu_choice == "4"  #update category
-			puts "Currently:  #{Transaction.find(selected_transaction).category}"
+			puts "Currently:  #{Transaction.find(transaction_to_edit).category}"
 			updated_value = gets.chomp.to_s
-			transaction_updated = Transaction.update(selected_transaction, :category => updated_category)
+			transaction_updated = Transaction.update(transaction_to_edit, :category => updated_category)
 
 	  elsif menu_choice == "5" #update payee
-	  	puts "Currently:  #{Transaction.find(selected_transaction).payee}"
+	  	puts "Currently:  #{Transaction.find(transaction_to_edit).payee}"
 			updated_payee = gets.chomp.to_s
-			transaction_updated = Transaction.update(selected_transaction,:payee => updated_payee)
+			transaction_updated = Transaction.update(transaction_to_edit,:payee => updated_payee)
 
 	  elsif menu_choice == "6" #update account
-	  	puts "Account - currently:  #{Transaction.find(selected_transaction).accounts_id}"
+	  	puts "Account - currently:  #{Transaction.find(transaction_to_edit).accounts_id}"
 			puts "Select an updated Account ID."
 			view_all_accts
 			puts
 			updated_account_id = gets.chomp.to_i
-			transaction_updated = Transaction.update(selected_transaction, :accounts_id => updated_account_id)
+			transaction_updated = Transaction.update(transaction_to_edit, :accounts_id => updated_account_id)
 
 	  elsif menu_choice == "7" #update note
-	  	puts "Note - currently:  #{Transaction.find(selected_transaction).note}"
+	  	puts "Note - currently:  #{Transaction.find(transaction_to_edit).note}"
 	  	updated_note = gets.chomp.to_s
-	  	transaction_updated = Transaction.update(selected_transaction, :note => updated_note)
-		else 
+	  	transaction_updated = Transaction.update(transaction_to_edit, :note => updated_note)
+	  
+	  elsif 
+	  	delete_transaction
+	  else 
 	  	puts "Invalid selection.  Please try again."
 	  end
 	  puts
 	end
-	# transaction_updated = Transaction.update(selected_transaction, :is_credit => updated_is_credit, :value => updated_value, :date => updated_date, :category => updated_category, :payee => updated_payee, :accounts_id => updated_account_id, :note => updated_note)
+	# transaction_updated = Transaction.update(transaction_to_edit, :is_credit => updated_is_credit, :value => updated_value, :date => updated_date, :category => updated_category, :payee => updated_payee, :accounts_id => updated_account_id, :note => updated_note)
 end
 
 
