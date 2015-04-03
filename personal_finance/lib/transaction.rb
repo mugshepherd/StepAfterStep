@@ -72,7 +72,7 @@ end
 
 #left off here
 def delete_transaction selected_transaction
-	tp Transaction.find(:id => selected_transaction)
+	tp Transaction.find(selected_transaction)
 	puts "Please press 'd' again to delete"
 	user_input = gets.chomp.to_s
 	if user_input == "d"
