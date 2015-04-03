@@ -11,12 +11,22 @@ def view_all_transactions
 	tp Transaction.order(:date), :id, :date, :accounts_id, :payee, :category, :note, :is_credit, :value
 end
 
+def filter_by_category
+	puts "This feature is under development"
+# 	print ("Choose a category to filter by:  ")
+# 	puts  Transaction.select(:category).distinct.each do |x| puts x.category end
+# 	puts "or type a new one"
+# 	user_input = gets.chomp.to_s
+# 	tp Transaction.order(:date), :id, :date, :accounts_id, :payee, :category, :note, :is_credit, :value
+end
+
+
 def select_transaction
-	puts "select_transaction method"
 	view_all_transactions
 	puts
 	print "Please select an ID number:  "
-	return menu_choice = gets.chomp.to_i
+	menu_choice = gets.chomp.to_i
+	return menu_choice
 end
 
 def add_new_transaction
@@ -74,11 +84,11 @@ end
 
 def edit_transaction selected_transaction
 	loop do
-		puts
-		tp Transaction.find(:id => selected_transaction)
-		puts
-		puts "Edit Transaction"
-		puts "----------------------------------"
+	puts
+	tp Transaction.find(selected_transaction)
+	puts
+	puts "Edit Transaction"
+	puts "----------------------------------"
 	  puts("Type 1 to Update Transaction Type (ie: debit or credit)")
 	  puts("Type 2 to Update Value of Transaction")
 	  puts("Type 3 to Update Date")

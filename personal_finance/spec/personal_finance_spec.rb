@@ -76,20 +76,20 @@ end
 
 
 #testing Category class
-describe Category do
+describe Account do
 	it "has a name" do
 	end
 end
 
-describe Category do
-	subject (:category) do	
-		Category.new("groceries")
+describe Account do
+	subject (:Account) do	
+		Account.new("groceries")
 	end
 
 	it "has a name" do
 	end
 
-	context "when adding a new category" do
+	context "when adding a new Account" do
 		it "accepts a name" do
 		end
 
@@ -100,7 +100,7 @@ describe Category do
 		end
 	end
 
-	context "when updating a category name" do
+	context "when updating a Account name" do
 		it "updates the original value" do
 		end
 

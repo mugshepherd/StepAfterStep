@@ -22,13 +22,12 @@ clear_screen = system "clear"
 
 
 def current_balance
-	balance = ((Transaction.where(is_credit = "true").sum(:value)) - (Transaction.where(is_credit = "false").sum(:value)))	
-	return puts "Current Balance = #{balance}"
+	credits = (Transaction.where(is_credit: true).sum(:value)) 
+	debits = (Transaction.where(is_credit: false).sum(:value))	
+	account_balance = credits - debits
+	
+	return account_balance
 end
-
-
-	# Player.where("games > ?", 40).average(:age)
-
 
 def transaction_management
 #transaction management
@@ -38,33 +37,30 @@ print ` clear `
 	puts("Transaction Management")
 	puts "----------------------------------"
 	puts("Type 1 to View All Transactions")
-  puts("Type 2 to Add a New Transaction")
-  puts("Type 3 to Edit a Transaction")
+	puts("Type 2 to Add a New Transaction")
+	puts("Type 3 to Edit a Transaction")
 	puts("Type 4 to Filter by Category")
-  puts("Type 'd' to Delete a Transaction")
-  puts("Press 0 to Return to Main Menu")  
-
-	  puts
-	  puts("Enter a number: ")
-	  menu_choice = gets.chomp.to_s
-	  puts
-	  if menu_choice == "1"
-	  	view_all_transactions
-	  elsif menu_choice == "2"
-	  	add_new_transaction
-	  elsif menu_choice == "3"
-  		select_transaction
-	  	edit_transaction(select_transaction)
-	  elsif menu_choice == "4"
-	  	filter_by_category
-	  elsif menu_choice.downcase == "d"
-  		select_transaction
-	  	delete_transaction(select_transaction)
-	  elsif menu_choice == "0"
-	  	break
-	  else
-	  	puts "Incorrect input.  Please try again."
-	 	end
+	puts("Type 'd' to Delete a Transaction")
+	puts("Press 0 to Return to Main Menu")  
+	puts
+	puts("Enter a number: ")
+	menu_choice = gets.chomp.to_s
+	puts
+	if menu_choice == "1"
+		view_all_transactions
+	elsif menu_choice == "2"
+		add_new_transaction
+	elsif menu_choice == "3"
+		edit_transaction(select_transaction)
+	elsif menu_choice == "4"
+		filter_by_category
+	elsif menu_choice.downcase == "d"
+		delete_transaction(select_transaction)
+	elsif menu_choice == "0"
+		break
+	else
+		puts "Incorrect input.  Please try again."
+		end
 	end
 end  
 
