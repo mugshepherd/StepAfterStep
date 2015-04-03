@@ -17,9 +17,7 @@ end
 def add_new_transaction
 	print ` clear `
 	@new_entry_is_credit = nil
-
 	loop do
-
 		puts "Add a new transaction"
 		puts("Press 1 if this is a Credit, Press 2 if Debit")  
 		puts 
@@ -51,6 +49,16 @@ def add_new_transaction
 	transaction_new = Transaction.create(:is_credit => @new_entry_is_credit, :value => new_value, :date => new_date, :category => new_category, :payee => new_payee, :accounts_id => new_transaction_account, :note => new_note)
 end
 
+def delete_transaction
+	menu_choice.downcase == "d"
+	puts "Please press 'd' again to delete"
+	selection_drop_confirm = gets.chomp.to_s
+	if selection_drop_confirm == "d"
+		Transaction.delete(transaction_to_edit)
+	else
+		puts "Returning to previous menu."
+	end
+end
 
 def edit_transaction 
 	loop do
@@ -75,7 +83,7 @@ def edit_transaction
 	  puts("Type 5 to Update Payee")
 	  puts("Type 6 to Update Account")
 	  puts("Type 7 to Update Note")
-	  puts("Press 'd' to Delete Account")  
+	  puts("Press 'd' to Delete Transaction")  
 
 	  puts
 	  puts("Enter a number: ")
@@ -123,14 +131,8 @@ def edit_transaction
 	  	updated_note = gets.chomp.to_s
 	  	transaction_updated = Transaction.update(transaction_to_edit, :note => updated_note)
 	  
-	  elsif menu_choice.downcase == "d"
-	  	puts "Please press 'd' again to delete"
-	  	selection_drop_confirm = gets.chomp.to_s
-	  		if selection_drop_confirm == "d"
-	  			Transaction.delete(transaction_to_edit)
-  			else
-  				puts "Returning to previous menu."
-	  		end
+	  elsif 
+	  	delete_transaction
 	  else 
 	  	puts "Invalid selection.  Please try again."
 	  end
@@ -139,10 +141,7 @@ def edit_transaction
 	# transaction_updated = Transaction.update(transaction_to_edit, :is_credit => updated_is_credit, :value => updated_value, :date => updated_date, :category => updated_category, :payee => updated_payee, :accounts_id => updated_account_id, :note => updated_note)
 end
 
-def delete_transaction
-	puts "delete_transaction"
-	puts "Under development.  Return to main menu"	
-end
+
 
 def filter_by_category
 	puts "filter_by_category"
