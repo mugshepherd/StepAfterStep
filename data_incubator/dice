@@ -1,0 +1,8 @@
+array = [0]
+while true
+    x = rand(1..6)
+    if array.inject (:+) < 20
+        array << x
+    end
+end
+puts array

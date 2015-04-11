@@ -25,7 +25,6 @@ def current_balance
 	credits = (Transaction.where(is_credit: true).sum(:value)) 
 	debits = (Transaction.where(is_credit: false).sum(:value))	
 	account_balance = credits - debits
-	
 	return account_balance
 end
 
